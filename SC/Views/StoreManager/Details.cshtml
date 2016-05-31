@@ -1,0 +1,26 @@
+﻿@model SC.Models.Product
+@{
+    ViewBag.Title = "Details";
+}
+<ul class="shopping-card clearfix">
+        <li>
+            <img src="~/Resources/Images/@Model.Image" alt="@Model.Name" />
+            <span class="product-name">@Model.Name</span>
+            <span class="product-price">&pound;@Model.Price</span>
+            <span class="shopping-card-controller ">
+                @Html.ActionLink("Add to cart", "AddToCart",
+        "ShoppingCart", new { id = Model.ProductId }, new { @class = "all-width btn btn-success text-center" })
+            </span>
+        </li>
+
+
+</ul>
+<div class="container">
+    <div class="row text-center padding-l">
+        <a href="/home" class="btn btn-link">Back to product page</a>
+    </div>
+</div>
+
+
+
+

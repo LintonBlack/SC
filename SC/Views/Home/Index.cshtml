@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SC.Models.Product>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Products</h2>
+
+<ul class="shopping-card clearfix">
+    @foreach (var item in Model)
+    {
+        <li>
+
+            <img src="~/Resources/Images/@item.Image" alt="@item.Name" />
+            <span class="product-name">@item.Name</span>
+            <span class="product-price">&pound;@item.Price</span>
+            <span class="shopping-card-controller">
+                @Html.ActionLink("View details", "Details", new { id = item.ProductId })
+             
+            </span>
+        </li>
+
+    }
+</ul>
+
+
+
+

@@ -1,0 +1,49 @@
+﻿@model SC.ViewModels.ShoppingCartViewModel  
+@{
+    ViewBag.Title = "Items";
+}
+
+
+<ul class="list-articles" ng-controller="cartCtrl as viewModel">
+    <li class="clearfix card-top">
+        <span class="product-image">
+            
+        </span>
+        <span class="product-name">Product name</span>
+        <span class="product-price">Price</span>
+        <span class="product-count">Count</span>
+        <span class="shopping-card-controller">
+            
+        </span>
+    </li>
+
+
+        @foreach (var item in
+                 Model.CartItems) {
+                <li class="clearfix">
+                    <span class="product-image">
+                        <img src="~/Resources/Images/@item.Product.Image" alt="@item.Product.Name" height="40"/>
+                    </span>
+                    <span class="product-name">@item.Product.Name</span>
+                    <span class="product-price">@item.Product.Price</span>
+                    <span class="product-count">@item.Count</span>
+                    <span class="shopping-card-controller pull-right">
+                        <span class="btn btn-danger" data="@item.Product.ProductId" data-ng-click="viewModel.removeProduct($event)">Remove</span>
+                    </span>
+                </li>
+
+            }
+
+</ul>
+<div class="container">
+    <div class="row text-right padding-l">
+        <a href="/home" class="btn btn-link">Continue shopping</a>
+        <a href="/home" class="btn btn-success">Checkout</a>
+    </div>
+</div>
+
+
+
+
+
+
