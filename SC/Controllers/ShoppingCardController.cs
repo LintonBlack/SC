@@ -12,16 +12,26 @@ namespace SC.Controllers
         // GET: /ShoppingCart/
         public ActionResult Index()
         {
+           
+            // Return the view
+            return View();
+        }
+        //
+        // GET: /ShoppingCart/GetCard
+        [HttpGet]
+        public ActionResult GetCard()
+        {
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartTotal = cart.GetTotal(),
+                CartDiscount = cart.GetDiscount()
             };
             // Return the view
-            return View(viewModel);
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
         //
         // GET: /ShoppingCart/AddToCart/5

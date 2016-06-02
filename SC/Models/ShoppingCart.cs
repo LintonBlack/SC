@@ -110,16 +110,67 @@ namespace SC.Models
             // Multiply product price by count of that product to get 
             // the current price for each of those albums in the cart
             // sum all product price totals to get the cart total
+
             decimal? total = (from cartItems in storeDB.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
                               cartItems.Product.Price).Sum();
 
-            return total ?? decimal.Zero;
+            return total-GetDiscount() ?? decimal.Zero;
         }
 
+        public decimal GetDiscount()
+        {
+            decimal discountTotal = 0m;
+            decimal TargetBuy2Get50Percent = 0m;
 
-        public int CreateOrder(Order order, Discount discount)
+            var cartItems = GetCartItems();
+            foreach (var item in cartItems)
+            {
+                if(item.Product.Identifier.StartsWith("Buy3OneFree"))
+                {
+                    for(int i = 1; i <= item.Count;  i++)
+                    {
+                        if (i % 4 == 0)
+                        {
+                            discountTotal = discountTotal + item.Product.Price;
+                        }
+                    }
+                               
+                }
+
+                if (item.Product.Identifier.StartsWith("Buy2Get50Percent"))
+                {
+                    for (int i = 1; i <= item.Count; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            TargetBuy2Get50Percent = TargetBuy2Get50Percent + 1;
+                        }
+                    }
+             
+                }
+
+                if (item.Product.Identifier.StartsWith("TargetBuy2Get50Percent") && (TargetBuy2Get50Percent > 0))
+                {
+                    //50% off On existing bread items
+                    if(item.Count > TargetBuy2Get50Percent)
+                    {
+                        discountTotal = discountTotal + ((item.Product.Price / 2) * TargetBuy2Get50Percent);
+                    } else
+                    {
+                        discountTotal = discountTotal + ((item.Product.Price / 2) * item.Count);
+                    }
+                    
+                    
+                                   
+                }
+            }
+
+            return discountTotal;
+        }
+
+        public int CreateOrder(Order order)
         {
             decimal orderTotal = 0;
 

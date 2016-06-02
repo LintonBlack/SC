@@ -4,41 +4,50 @@
 }
 
 
-<ul class="list-articles" ng-controller="cartCtrl as viewModel">
+<ul class="list-articles" ng-cloak ng-controller="cartCtrl as viewModel">
     <li class="clearfix card-top">
         <span class="product-image">
             
         </span>
         <span class="product-name">Product name</span>
-        <span class="product-price">Price</span>
-        <span class="product-count">Count</span>
-        <span class="shopping-card-controller">
-            
+        <span class="product-price">Count</span>
+        <span class="product-count">Price</span>
+        <span class="shopping-card-controller">            
         </span>
     </li>
+    <li  class="clearfix" ng-show="item.Count > 0"   data-ng-repeat="item in viewModel.cartItems">
+        <span class="product-image">
+            <img ng-src="~/Resources/Images/{{item.Product.Image}}" alt="{{item.Product.Name}}" height="40" />
+        </span>
+        <span class="product-name" data-ng-bind="item.Product.Name">&nbsp;</span>
+        <span class="product-count" data-ng-bind="item.Count">&nbsp;</span>
+        <span class="product-price" data-ng-bind="item.Product.Price">&nbsp;</span>
+        <span class="shopping-card-controller pull-right">
+            <span class="btn btn-success" data-ng-click="viewModel.addProduct(item)">Add more</span>
+            <span class="btn btn-danger" data-ng-click="viewModel.removeProduct(item)">Remove</span>
+        </span>
+    </li>
+    <li class="clearfix" ng-hide="viewModel.cartItems.length > 0">
+      <span data-ng-bind="viewModel.cartItems"></span>
+    </li>
+    <li class="clearfix card-bottom">
+        <span class="product-image">
 
+        </span>
+        <span class="product-name">&nbsp;</span>        
+        <span class="product-count">&nbsp;</span>
+        <span class="product-price">Total :<b>&pound; <span data-ng-bind="viewModel.cartTotal"></span></b>
+                 <i ng-show="viewModel.cartDiscount>0">(Discount: &pound;<span data-ng-bind="viewModel.cartDiscount"></span>)</i>
+        </span>
+        <span class="shopping-card-controller">
 
-        @foreach (var item in
-                 Model.CartItems) {
-                <li class="clearfix">
-                    <span class="product-image">
-                        <img src="~/Resources/Images/@item.Product.Image" alt="@item.Product.Name" height="40"/>
-                    </span>
-                    <span class="product-name">@item.Product.Name</span>
-                    <span class="product-price">@item.Product.Price</span>
-                    <span class="product-count">@item.Count</span>
-                    <span class="shopping-card-controller pull-right">
-                        <span class="btn btn-danger" data="@item.Product.ProductId" data-ng-click="viewModel.removeProduct($event)">Remove</span>
-                    </span>
-                </li>
-
-            }
+        </span>
+    </li>
 
 </ul>
 <div class="container">
     <div class="row text-right padding-l">
-        <a href="/home" class="btn btn-link">Continue shopping</a>
-        <a href="/home" class="btn btn-success">Checkout</a>
+        <a href="/home" class="btn btn-primary">Continue shopping</a>
     </div>
 </div>
 

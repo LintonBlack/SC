@@ -16,7 +16,7 @@ namespace SC.Models
             {
                 new Product { Name = "Butter", Price = 0.8m, Image="Butter.jpg", Identifier="Buy2Get50Percent" },
                 new Product { Name = "Milk", Price = 1.15m, Image="Milk.jpg", Identifier="Buy3OneFree"},
-                new Product { Name = "Bread", Price = 1.00m, Image="Bread.jpg", Identifier="Buy2Get50PercentTarget" }
+                new Product { Name = "Bread", Price = 1.00m, Image="Bread.jpg", Identifier="TargetBuy2Get50Percent" }
             };
 
             foreach (Product product in products)

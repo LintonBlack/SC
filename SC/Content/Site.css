@@ -40,6 +40,10 @@ textarea {
     margin-top:20px;
     color:#fff;
 }
+.list-articles li.card-bottom {
+    background:#f8f8f8 !important;
+    
+}
 .shopping-card  li {
     display:inline-block;
       border: 1px solid #c5c5c5;
